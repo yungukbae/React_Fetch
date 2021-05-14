@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "name": "yungukbae",
+      "email": "yungukbae@gmail.com",
+      "password": "qwe123",
+      "id": 1
+    },
+    {
+      "name": "ssac",
+      "email": "ssac@gmail.com",
+      "password": "qwe123",
+      "id": 2
+    },
+    {
+      "name": "pobi",
+      "email": "pobi@gmail.com",
+      "password": "qwe123",
+      "id": 3
+    },
+    {
+      "name": "mouse",
+      "email": "mouse@gmail.com",
+      "password": "qwe123",
+      "id": 4
+    },
+    {
+      "name": "kjkefe",
+      "email": "aegkegj@gaegmakem.com",
+      "password": "qqqqqqq",
+      "id": 5
+    },
+    {
+      "name": "sucsuc",
+      "email": "sucsuc@gmail.com",
+      "password": "yungukbae",
+      "id": 6
+    }
+  ]
+}
