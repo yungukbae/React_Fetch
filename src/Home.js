@@ -1,14 +1,12 @@
 import React from 'react';
-
-const Home = (props) => {
+import Navbtn from './Navbtn'
+const Home = () => {
 
     return(
         <div className="Home">
-
+            <Navbtn/>
             <h2>Home</h2>
-
-            <h3>Hello! {props.name}</h3> 
-            
+            <h3>Hello!</h3> 
         </div>
     )
 

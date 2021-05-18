@@ -1,4 +1,4 @@
-import Navbar from './Navbar'
+import Navbtn from './Navbtn'
 
 const Logout = (history) => {
     
@@ -19,5 +19,7 @@ const Logout = (history) => {
     ).catch(error => console.error('Error:', error));
     history.push('/login')
 }
+
+
 
 export default Logout;

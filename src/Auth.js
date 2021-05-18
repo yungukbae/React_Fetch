@@ -1,5 +1,4 @@
 
-import jwt_decode from "jwt-decode";
 import React, {useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 
@@ -9,6 +8,8 @@ export default function (SpecificComponent, option, adminRoute = null){
     //true => login user
     //false => non login user
 
+
+
     function AuthenticationCheck(){
 
         const history = useHistory();
@@ -17,6 +18,7 @@ export default function (SpecificComponent, option, adminRoute = null){
             const accessToken = localStorage.getItem('accessToken')
             
             if(!accessToken){
+                
                 if(option){
                     history.push('/login')
                 }
@@ -35,9 +37,6 @@ export default function (SpecificComponent, option, adminRoute = null){
             
 
                 //로그인 하지 않은 상태
-                    
-        
-            
         }, [])
 
         return(
@@ -46,6 +45,8 @@ export default function (SpecificComponent, option, adminRoute = null){
 
 
     }
+
+    
 
 return AuthenticationCheck
 }

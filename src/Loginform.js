@@ -12,8 +12,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useState } from 'react';
 import {useHistory} from 'react-router-dom';
-import Navbar from './Navbar'
+import Navbtn from './Navbtn';
 
+class HTTPError extends Error {}
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -36,14 +37,13 @@ const useStyles = makeStyles((theme) => ({
     }));
     
 
-const Loginform = () => {
+const Loginform = ({ token, setToken }) => {
 
     const classes = useStyles();
 
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isPending, setisPending] = useState(false);
     const history = useHistory();
     
     const Submithandler = (e) => {
@@ -56,24 +56,30 @@ const Loginform = () => {
             credentials: 'same-origin',
             body: JSON.stringify(data)
         })
-        .then(res => res.json())
-        .then(response => {
-            localStorage.setItem('accessToken', response.accessToken)
-            localStorage.setItem('refreshToken', response.refreshToken)
-        }).then(
-            () => Navbar(true),
+        .then(res => {
+            if (res.ok) {
+                // 요청이 성공(200~299) 하면
+                return res.json()
+                } else {
+                // 아니면 일단 에러 던지고 보자
+                alert('Check your ID or PW')
+                throw new HTTPError(`Response: ${res.statusText}`)
+                }
+        }).then(res => {
+            localStorage.setItem('accessToken', res.accessToken)
+            localStorage.setItem('refreshToken', res.refreshToken)
+            setToken(localStorage.getItem('accessToken'))
             history.push('/')
-        )
+        })
         .catch(error => console.error('Error:', error))
-
     }
 
 
 
 
     return( 
-
-            <div className="Loginform">
+        
+        <div className="Loginform">
                 <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>

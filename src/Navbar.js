@@ -1,42 +1,26 @@
-import Logout from './Logout'
-import { useHistory } from 'react-router-dom';
-import { useState, useEffect} from 'react';
-import Loginform from './Loginform';
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import Logout from "./Logout";
 
 
-const Navbar = (props) => {
+const Navbar = ({ token, setToken }) =>{
     const history = useHistory()
-    const isToken = localStorage.getItem('accessToken')
-    const [Logstate, setLogstate] = useState('LOGIN')
-    //Logstate , login = true, logout = false
-    const btn = <button onClick={() => Navbar()}>{Logstate}</button>
-    // const logoutbtn = <button onClick={() => Logout(history)}>LOG OUT</button>
-    // const loginbtn = <button onClick={() => history.push('/login')}>LOG IN</button>
         
-        useEffect(() => {
-            
-            if(!isToken){
-                history.push('/login')
-            }else{
-                Logout(history)
-                setLogstate('LOGIN')
-                props = false;
-            }
-            if(props === true){
-                setLogstate('LOGOUT')
-            }
+    const loghandler = () =>{
+        if(token){
+            Logout(history)
+            setToken(null)
+        } else {
+            history.push('/login')
+        }
+    }
 
-        }, [])
-        
-    
-    
-        
-        
-        return(
+    return(
         <div>
-            {btn}
+            NavBar
+            <button onClick={loghandler}>{ token ? "LOGOUT" : "LOGIN" }</button>        
         </div>
-        )
+    )
 }
 
 

@@ -12,7 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
-
+import Navbtn from './Navbtn'
+class HTTPError extends Error {}
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -55,12 +56,20 @@ const Registerform = () => {
                 method:'POST',
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(users)
-            }).then(res => res.json(),
-            setisPending(false),
-            history.push('/'))
+            }).then(res => {
+                if (res.ok) {
+                    setisPending(false)
+                    history.push('/')
+                    // 요청이 성공(200~299) 하면
+                    return res.json()
+                    } else {
+                    // 아니면 일단 에러 던지고 보자
+                    alert('email or name is already registered')
+                    throw new HTTPError(`Response: ${res.statusText}`)
+                    }
+            })
             .then(response => console.log('Success:', JSON.stringify(response)))
             .catch(error => console.error('Error:', error));
-        
             }else{
                 alert('Check Password');
             }
@@ -74,6 +83,7 @@ const Registerform = () => {
 
     return(
             <div className="Registerform">
+                <Navbtn/>
                 <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
