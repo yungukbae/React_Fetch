@@ -6,7 +6,7 @@ import NotFound from './NotFound'
 import Room1 from './Room1'
 import Room2 from './Room2'
 import Room3 from './Room3'
-
+import './App.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Auth from './Auth'
 import { useState } from 'react'
@@ -21,6 +21,7 @@ function App() {
 
 
   return (
+    <>
     <Router>
     <div className="App">
       <Navbar token={token} setToken={setToken} />
@@ -37,6 +38,7 @@ function App() {
         </div>
     </div>
     </Router>
+    </>
   );
 }
 

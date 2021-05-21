@@ -12,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
-import Navbtn from './Navbtn'
 class HTTPError extends Error {}
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     
 const Registerform = () => {
 
-    const [name, setName] = useState('');
+    const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
@@ -48,7 +47,7 @@ const Registerform = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const users = {name, email, password};
+        const users = {username, email, password};
         setisPending(true);
 
             if(password === passwordCheck){
@@ -58,9 +57,8 @@ const Registerform = () => {
                 body:JSON.stringify(users)
             }).then(res => {
                 if (res.ok) {
-                    setisPending(false)
-                    history.push('/')
                     // 요청이 성공(200~299) 하면
+                    history.push('/')
                     return res.json()
                     } else {
                     // 아니면 일단 에러 던지고 보자
@@ -70,6 +68,7 @@ const Registerform = () => {
             })
             .then(response => console.log('Success:', JSON.stringify(response)))
             .catch(error => console.error('Error:', error));
+            setisPending(false)
             }else{
                 alert('Check Password');
             }
@@ -82,8 +81,7 @@ const Registerform = () => {
         const classes = useStyles();
 
     return(
-            <div className="Registerform">
-                <Navbtn/>
+            <div className="Registerform">         
                 <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -105,8 +103,8 @@ const Registerform = () => {
                     label="Name"
                     name="Name"
                     autoComplete="name"
-                    value = {name}
-                    onChange = {(e) => setName(e.target.value)}
+                    value = {username}
+                    onChange = {(e) => setUserName(e.target.value)}
                 />
                 </Grid>
 
@@ -152,13 +150,6 @@ const Registerform = () => {
                     onChange = {(e) => setPasswordCheck(e.target.value)}
                 />
                 </Grid>
-
-                <Grid item xs={12}>
-                <FormControlLabel
-                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                    label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-                </Grid>
             </Grid>
 
 
@@ -182,7 +173,7 @@ const Registerform = () => {
             </Button>}
             <Grid container justify="flex-end">
                 <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                     Already have an account? Sign in
                 </Link>
                 </Grid>
