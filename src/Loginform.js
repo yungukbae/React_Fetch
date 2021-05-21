@@ -12,8 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useState } from 'react';
 import {useHistory} from 'react-router-dom';
-import Navbtn from './Navbtn';
-
+import jwt_decode from "jwt-decode";
 class HTTPError extends Error {}
 
 const useStyles = makeStyles((theme) => ({
@@ -69,6 +68,7 @@ const Loginform = ({ token, setToken }) => {
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('refreshToken', res.refreshToken)
             setToken(localStorage.getItem('accessToken'))
+            console.log(jwt_decode(localStorage.getItem('accessToken')))
             history.push('/')
         })
         .catch(error => console.error('Error:', error))

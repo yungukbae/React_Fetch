@@ -1,4 +1,3 @@
-import Navbtn from './Navbtn'
 
 const Logout = (history) => {
     
