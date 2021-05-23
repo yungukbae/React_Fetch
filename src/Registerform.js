@@ -58,15 +58,13 @@ const Registerform = () => {
             }).then(res => {
                 if (res.ok) {
                     // 요청이 성공(200~299) 하면
-                    history.push('/')
-                    return res.json()
+                    return (console.log('Success:', res),history.push('/'))
                     } else {
                     // 아니면 일단 에러 던지고 보자
                     alert('email or name is already registered')
                     throw new HTTPError(`Response: ${res.statusText}`)
                     }
             })
-            .then(response => console.log('Success:', JSON.stringify(response)))
             .catch(error => console.error('Error:', error));
             setisPending(false)
             }else{
